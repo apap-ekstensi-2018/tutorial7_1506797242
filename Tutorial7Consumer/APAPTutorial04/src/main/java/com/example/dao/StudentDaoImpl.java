@@ -1,5 +1,6 @@
 package com.example.dao;
 
+import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -22,13 +23,13 @@ public class StudentDaoImpl implements StudentDAO {
 
 	@Override
 	public List<StudentModel> selectAllStudent() {
-		List<StudentModel> students = (List<StudentModel>) restTemplate.getForObject("http://localhost:8080/rest/student/viewall",StudentModel.class);
-		return students;
+		StudentModel [] students = restTemplate.getForObject("http://localhost:8080/rest/student/viewall/", StudentModel[].class);
+		List<StudentModel> hasil = Arrays.asList(students);
+		return hasil;
 	}
 	
 	@Bean 
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
 		return builder.build();
 	}
-
 }
